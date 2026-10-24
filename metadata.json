@@ -1,0 +1,7 @@
+{
+  "name": "Remix: Genesis Revitalization Group - Atlantic City, NJ",
+  "description": "A newly opened and start-up modern, responsive hospital-style website for New Jersey Developmental Disabilities, featuring appointment booking, patient dashboards, and administrative management.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

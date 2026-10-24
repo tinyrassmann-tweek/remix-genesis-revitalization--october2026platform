@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Stores user profile information and roles.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["patient", "staff", "admin", "doctor"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "phoneNumber": { "type": "string" },
+        "specialty": { "type": "string" },
+        "bio": { "type": "string" },
+        "photoURL": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "appointments": {
+      "title": "Appointment",
+      "description": "Stores appointment details between patients and doctors.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "patientId": { "type": "string" },
+        "patientName": { "type": "string" },
+        "doctorId": { "type": "string" },
+        "doctorName": { "type": "string" },
+        "department": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "completed"] },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["patientId", "doctorId", "date", "time", "status"]
+    },
+    "formSubmissions": {
+      "title": "Form Submission",
+      "description": "Stores intake, lead, and SOP form submissions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "formType": { "type": "string", "enum": ["intake", "type", "sop", "lead"] },
+        "data": { "type": "object" },
+        "submittedAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "archived"] }
+      },
+      "required": ["formType", "data", "submittedAt"]
+    },
+    "tourBookings": {
+      "title": "Virtual Tour Booking",
+      "description": "Stores virtual tour requests.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed"] }
+      },
+      "required": ["name", "email", "date", "time"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "users",
+      "description": "User profiles indexed by UID."
+    },
+    "/appointments/{id}": {
+      "schema": "appointments",
+      "description": "All appointments."
+    },
+    "/formSubmissions/{id}": {
+      "schema": "formSubmissions",
+      "description": "All form submissions."
+    },
+    "/tourBookings/{id}": {
+      "schema": "tourBookings",
+      "description": "Virtual tour bookings."
+    }
+  }
+}
